@@ -1,0 +1,1 @@
+This is an assignment of TheOdinProject JS fundamentals course.
