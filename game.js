@@ -1,5 +1,7 @@
-let robotTalking = new Audio("./sounds/retro-robot-sound.wav");
-robotTalking.play();
+const robotTalking = new Audio("./sounds/retro-robot-sound.wav");
+window.onload=function(){
+    robotTalking.play();
+  }
 
 
 function getComputerChoice(){
