@@ -4,7 +4,9 @@ body {
     display: flex;
     justify-content:center;
     align-items: center;
-    background: #023e8a;
+    /* background: #023e8a; */
+    background: rgb(10,10,97);
+    background: linear-gradient(0deg, rgba(10,10,97,1) 0%, rgba(45,56,253,1) 100%);
 }
 
 .hero {
