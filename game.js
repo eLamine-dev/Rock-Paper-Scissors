@@ -1,3 +1,6 @@
+let robotTalking = new Audio("./sounds/retro-robot-sound.wav");
+robotTalking.play();
+
 
 function getComputerChoice(){
 
@@ -47,11 +50,18 @@ function playRound(playerSelection, computerSelection) {
 let playerSelection = '';
 let computerSelection = '';
 let selectionButtons = document.querySelectorAll('.selectBtn');
+let pressAudio = new Audio("./sounds/selectSound.wav");
+let winAudio = new Audio("./sounds/win.wav");
+let lostAudio = new Audio("./sounds/game-over.wav");
+
+
+
 
   selectionButtons.forEach(btn => {
 
       btn.addEventListener('click', function () {
-        btn.classList.remove("selectedBtn");
+        pressAudio.currentTime = 0;
+        pressAudio.play();
         playerSelection = btn.id;
         computerSelection = getComputerChoice();
         showComputerChoice(computerSelection);
@@ -69,7 +79,7 @@ let selectionButtons = document.querySelectorAll('.selectBtn');
   let playAgain = document.getElementById('playAgain');
 
   playAgain.addEventListener('click', function () {
-      location.reload()
+      location.reload();
   });
 
 
@@ -103,7 +113,7 @@ function countScore(roundWinner) {
     } else if (roundWinner === 'computer') { computerScore++;                                            
                                              firstMsg.innerText = `I won <${computerSelection}> beats <${playerSelection}>`;
                                              
-    } else if (roundWinner === 'tie') { firstMsg.innerText = "it's a tie this time";}
+    } else if (roundWinner === 'tie') { firstMsg.innerText = "it's a tie this time.";}
 
     secondMsg.innerText = `Score: Robot<${computerScore}>  Human<${playerScore}>`; 
 }
@@ -120,10 +130,12 @@ function declareWinner(playerScore, computerScore) {
         screenText.style.display = 'block';
         
 
-        if (computerScore === 5) { firstMsg.innerText = 'game over, I won' ;
-                                   screenText.innerText = 'winner: <rps-22>' 
-        } else if (playerScore === 5) { firstMsg.innerText = 'you won! congrats' ;
-                                        screenText.innerText = 'winner: <human>' }
+        if (computerScore === 5) { firstMsg.innerText = 'game over, I won.' ;
+                                   screenText.innerText = 'winner: <rps-22>' ;
+                                   lostAudio.play();
+        } else if (playerScore === 5) { firstMsg.innerText = 'you won! congratulations.' ;
+                                        screenText.innerText = 'winner: <human>' ;
+                                        winAudio.play();}
     }
 
 }
