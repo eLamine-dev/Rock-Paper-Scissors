@@ -4,19 +4,10 @@ body {
     display: flex;
     justify-content:center;
     align-items: center;
+    background: #023e8a;
 }
 
-
-
-
-
-body {
-    
-    background: #172755; 
-  }
-
 .hero {
-
     display: flex;
     justify-content:center;
     align-items: center;
@@ -25,12 +16,14 @@ body {
 
 
 .robot {
-    
-    height: 350px;
+    height: 450px;
     position: relative;
     justify-content:center;
     align-items: center;
-    animation: MoveUpDown 1.2s ease-in-out infinite;
+}
+
+.robotDiv {
+  animation: MoveUpDown 1.2s ease-in-out infinite;
 }
 
 @keyframes MoveUpDown {
@@ -42,20 +35,43 @@ body {
     }
   }
 
+#robot-screen {
+    display: flex;
+    position: absolute;
+    background: #03045e;
+    color: #eeff00;
+    width: 94px;
+    height: 64px;
+    border-radius: 7px;
+    padding: 0px;
+    top: 250px;
+    left: 142px;
+    align-items: center;
+    justify-content: center;  
+}
+
+#screen-text {
+  margin: 0;
+  font-family: 'Silkscreen';
+  font-size: 18px;
+  text-align: center;
+}
+
+.screen-img {
+  height: 64px;
+  display: none;
+}
 
 .bubble {
     position: relative;
-    background: #8a87c7;
+    background: #03045e;
     color: #eeff00;
-    font-family: Ruda;
-    font-size: 22px;
-    line-height: 24px;
     text-align: start;
-    width: 446px;
-    height: 130px;
+    width: 670px;
+    height: 160px;
     border-radius: 10px;
-    padding: 16px;
-    top: -100px;
+    padding: 20px;
+    top: -140px;
     left: 0px;
     
 }
@@ -68,7 +84,7 @@ body {
     z-index: 1;
     border-style: solid;
     border-width: 0 0 23px 26px;
-    border-color: transparent transparent #8a87c7 transparent;
+    border-color: transparent transparent #03045e transparent;
     top: 75%;
     left: -26px;
     margin-top: -11.5px;
@@ -76,12 +92,15 @@ body {
 
 #selectionButtons {
     position: absolute;
-    top: 60%;
-    left: 200px;
-    
+    top: 55%;
+    left: 420px;
+    display: flex;
+    gap: 24px;
 }
 
-.selectBtn{
+
+
+.selectBtn {
   background: none;
 	border: none;
 	padding: 0;
@@ -89,33 +108,66 @@ body {
 	outline: inherit;
 }
 
-.button-img {
-  height: 64px;
+#playAgain {
+
+  color: #eeff00;
+  font-family: 'Silkscreen' ;
+  font-size: 22px;
+  position: absolute;
+  top: 70%;
+  left: 500px;
+  display: flex;
+  gap: 24px;
+  background: none;
+	border: none;
+	padding: 0;
+	cursor: pointer;
+	outline: inherit;
+  display: none;
+
+}
+
+#playAgain:hover {
+  border-bottom:5px solid #eeff00;
 }
 
 
-.css-typing p {
+.selectedBtn {
+  border-bottom:5px solid #eeff00;
+}
+
+
+.selectBtn:hover {
+  border-bottom:5px solid #eeff00;
+}
+
+
+.button-img {
+  height: 70px;
+}
+
+
+.robot-msgs p {
 
   font-family: 'Silkscreen' ;
-  letter-spacing: 0.1px;
-  font-size: 18px;
+  font-size: 24px;
   white-space: nowrap;
   overflow: hidden;
   margin: 0;
   
+  
 }
 
-
-
-.css-typing p:nth-child(1) {
+.robot-msgs p:nth-child(1) {
   width: 50ch;
   -webkit-animation: type 2s steps(100, end);
   animation: type 2s steps(100, end);
   -webkit-animation-fill-mode: forwards;
   animation-fill-mode: forwards;
+  
 }
 
-.css-typing p:nth-child(2) {
+.robot-msgs p:nth-child(2) {
   width: 50ch;
   opacity: 0;
   -webkit-animation: type2 2s steps(40, end);
@@ -124,6 +176,7 @@ body {
   animation-delay: 2s;
   -webkit-animation-fill-mode: forwards;
   animation-fill-mode: forwards;
+  
 }
 
 

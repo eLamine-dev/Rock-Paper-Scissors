@@ -1,5 +1,3 @@
-// const prompt = require("prompt-sync")({ sigint: true });
-
 
 function getComputerChoice(){
 
@@ -18,6 +16,7 @@ if (n === 0) {
 let roundWinner = "";
 let computerScore = 0;
 let playerScore = 0;
+
 
 function playRound(playerSelection, computerSelection) {
 
@@ -42,95 +41,108 @@ function playRound(playerSelection, computerSelection) {
         
     } else { return "there must be some bug" }  
     
-    return roundWinner;
+    
   }
 
 
 
 
-  let selectionButtons = document.querySelectorAll('.selectBtn');
+let selectionButtons = document.querySelectorAll('.selectBtn');
+let msgs = document.querySelector('.robot-msgs p');
+
+
+let playerSelection = '';
+let computerSelection = '';
 
   selectionButtons.forEach(btn => {
 
       btn.addEventListener('click', function () {
-        let playerSelection = btn.id
-        let computerSelection = getComputerChoice();
+        btn.classList.remove("selectedBtn");
+        playerSelection = btn.id;
+        computerSelection = getComputerChoice();
+        showComputerChoice(computerSelection);
         playRound(playerSelection, computerSelection);
         countScore(roundWinner);
         declareWinner(playerScore, computerScore);
 
-        console.log(playerSelection, computerSelection, roundWinner );
+        selectionButtons.forEach(btn => {btn.classList.remove('selectedBtn');});
+        this.classList.add('selectedBtn');
       });
       
   });
 
-  let roundWinnerText = document.getElementById('roundWinner');
-  let gameWinnerText = document.getElementById('gameWinner');
+
+  let playAgain = document.getElementById('playAgain');
+
+  playAgain.addEventListener('click', function () {
+      location.reload()
+  });
+
+
+  let robotScreen = document.getElementById('robot-screen');
+  let screenText = document.getElementById('screen-text');
+  let screenImg = document.querySelectorAll('.screen-img');
+  let rockImg = document.getElementById('rock-img');
+  let paperImg = document.getElementById('paper-img');
+  let scissorsImg = document.getElementById('scissors-img');
+
+
+
+  let firstMsg = document.getElementById('first-line');
+  let secondMsg = document.getElementById('second-line');
   let selectionButtonsDiv = document.getElementById('selectionButtons');
 
 
+function showComputerChoice(computerSelection) {
+
+    screenText.style.display = 'none';
+    screenImg.forEach(img => {img.style.display = 'none';});
+
+    if (computerSelection === 'rock') { rockImg.style.display ='block';
+    } else if (computerSelection === 'paper') { paperImg.style.display ='block'
+    } else if (computerSelection === 'scissors') { scissorsImg.style.display ='block' } 
+}
   
+
 function countScore(roundWinner) {
-    if (roundWinner === 'player') { playerScore++ ; roundWinnerText.innerText = 'you won this round!';
-                } else if (roundWinner === 'computer') { computerScore++; roundWinnerText.innerText = 'computer won this round'
-                } else if (roundWinner === 'tie') { ties++ ,roundWinnerText.innerText = 'no one won this round'
-                } 
-    console.log(computerScore, playerScore);
-    return (computerScore, playerScore)
+    if (roundWinner === 'player') { playerScore++ ;
+                                    firstMsg.innerText = `You won <${playerSelection}> beats <${computerSelection}>`; 
+                                    
+    } else if (roundWinner === 'computer') { computerScore++;                                            
+                                             firstMsg.innerText = `I won <${computerSelection}> beats <${playerSelection}>`;
+                                             
+    } else if (roundWinner === 'tie') { firstMsg.innerText = "it's a tie this time";}
+
+    secondMsg.innerText = `Score: Robot<${computerScore}>  Human<${playerScore}>`; 
 }
 
  
-function declareWinner(computerScore,playerScore) {
+function declareWinner(playerScore, computerScore) {
+   
+    if (computerScore === 5 || playerScore === 5) {
 
-    let gameWinner = ""
-    if (computerScore === 5) { gameWinner = "computer" ; roundWinnerText.innerText = 'game over the computer won'
-    }else if (playerScore === 5) { gameWinner = "player" ; roundWinnerText.innerText = 'you won! congrats'}
-
-    if (gameWinner){
-
+        secondMsg.innerText = 'click below to play again' ;
         selectionButtonsDiv.remove();
+        playAgain.style.display = 'block';
+        screenImg.forEach(img => { img.style.display = 'none'});
+        screenText.style.display = 'block';
+        
 
+        if (computerScore === 5) { firstMsg.innerText = 'game over, I won' ;
+                                   screenText.innerText = 'winner: <rps-22>' 
+        } else if (playerScore === 5) { firstMsg.innerText = 'you won! congrats' ;
+                                        screenText.innerText = 'winner: <human>' }
     }
 
 }
 
 
 
-// function game(){
-
-//     let computerScore = 0;
-//     let playerScore = 0;
-//     let ties = 0;
 
 
-//     for (let i = 0; i < 5; i++) {
 
-//         const playerSelection = prompt().toLowerCase();
-//         const computerSelection = getComputerChoice();
 
-//         playRound(playerSelection, computerSelection);
-//         if (roundWinner === 'player') { playerScore++ 
-//         } else if (roundWinner === 'computer') { computerScore++ 
-//         } else if (roundWinner === 'tie') { ties++
-//         } else { console.loge('something is not working')}
-  
-//         console.log(playerSelection);
-//         console.log(computerSelection); 
-//         console.log(playerScore);
-//         console.log(computerScore);       
-//     }
 
-//     if (playerScore > computerScore) {
-//         console.log("you won!")
-//     } else if (computerScore > playerScore) {
-//         console.log("you lost")
-//     } else if (computerScore === playerScore) {
-//         console.log("It's a tie")
-//     }  
-// }
- 
-
-// game();
 
 
 

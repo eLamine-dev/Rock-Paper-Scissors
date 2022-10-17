@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <style></style>
+    <script src="/game.js" defer></script>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Silkscreen">
@@ -13,11 +13,21 @@
 </head>
 <body>
     <div class="hero">
-        <img class="robot" src="./images/robot.png" alt="robot">
+        <div class="robotDiv">
+            <img class="robot" src="./images/robot.png" alt="robot">
+            <div id="robot-screen"> 
+                <p id="screen-text">Hello human</p>
+                <div>
+                    <img id="rock-img" class="screen-img" src="./images/rock.png" alt="">
+                    <img id="paper-img" class="screen-img" src="./images/paper.png" alt="">
+                    <img id="scissors-img" class="screen-img" src="./images/scissors.png" alt="">
+                </div>
+            </div>
+        </div>
         <div class="bubble">
-            <div id="terminal-animation" class="css-typing" >
-                <p>Hello there! let's play rock-paper-scissors</p> 
-                <p> Click on the button bellow to start the game</p> 
+            <div class="robot-msgs" >
+                <p id="first-line" class="msg">hi, i am rock-paper-scissors Robot RPS-22 </p> 
+                <p id="second-line" class="msg">use the buttons bellow to play</p> 
             </div>
          
             <div id="selectionButtons">
@@ -28,9 +38,10 @@
                     <img class="button-img" src="./images/paper.png" alt="">
                 </button>
                 <button id="scissors" class="selectBtn">
-                    <img class="button-img" src="./images/scissors.png" alt="">
+                    <img  class="button-img" src="./images/scissors.png" alt="">
                 </button>
             </div>
+            <button id="playAgain" >reboot</button>
         </div>
         
     </div>
