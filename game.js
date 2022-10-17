@@ -40,19 +40,13 @@ function playRound(playerSelection, computerSelection) {
                 roundWinner = 'computer';
         
     } else { return "there must be some bug" }  
-    
-    
+     
   }
-
-
-
-
-let selectionButtons = document.querySelectorAll('.selectBtn');
-let msgs = document.querySelector('.robot-msgs p');
 
 
 let playerSelection = '';
 let computerSelection = '';
+let selectionButtons = document.querySelectorAll('.selectBtn');
 
   selectionButtons.forEach(btn => {
 
@@ -85,8 +79,6 @@ let computerSelection = '';
   let rockImg = document.getElementById('rock-img');
   let paperImg = document.getElementById('paper-img');
   let scissorsImg = document.getElementById('scissors-img');
-
-
 
   let firstMsg = document.getElementById('first-line');
   let secondMsg = document.getElementById('second-line');
