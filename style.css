@@ -18,7 +18,7 @@ body {
 
 
 .robot {
-    height: 450px;
+    height: 460px;
     position: relative;
     justify-content:center;
     align-items: center;
@@ -46,10 +46,10 @@ body {
     height: 64px;
     border-radius: 7px;
     padding: 0px;
-    top: 250px;
-    left: 142px;
+    top: 280px;
+    left: 184px;
     align-items: center;
-    justify-content: center;  
+    justify-content: center; 
 }
 
 #screen-text {
@@ -73,8 +73,8 @@ body {
     height: 160px;
     border-radius: 10px;
     padding: 20px;
-    top: -140px;
-    left: 0px;
+    top: -120px;
+    left: -64px;
     
 }
 
