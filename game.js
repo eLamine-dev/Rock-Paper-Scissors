@@ -1,28 +1,112 @@
+// Play sound of robot typing on page load
 let robotTalking = new Audio("./sounds/retro-robot-sound.wav");
 robotTalking.play();
 
+// User selection event functions
 
-function getComputerChoice(){
+let playerSelection = '';
+let computerSelection = '';
+let selectionButtons = document.querySelectorAll('.selectBtn');
+let pressAudio = new Audio("./sounds/selectSound.wav");
 
-let n =  Math.floor(Math.random() * 3);
+  selectionButtons.forEach(btn => {
 
-if (n === 0) { 
-    return 'rock';
-} else if (n === 1) {
-    return 'paper';
-} else if (n === 2) {
-    return 'scissors';
-} else { return 'something is wrong';}
-};
+    btn.addEventListener('click', function () {
+        pressAudio.currentTime = 0;
+        pressAudio.play();
+        playerSelection = btn.id;
+        computerSelection = getComputerChoice();
+        showComputerChoice(computerSelection);
+        playRound(playerSelection, computerSelection);
+        countScore(roundWinner);
+        declareWinner(playerScore, computerScore);
 
+        selectionButtons.forEach(btn => {btn.classList.remove('selectedBtn');});
+        this.classList.add('selectedBtn');
+    });
+      
+  });
+
+
+  // Robot screen updating based on computerChoice
+
+  let robotScreen = document.getElementById('robot-screen');
+  let screenText = document.getElementById('screen-text');
+  let screenImg = document.querySelectorAll('.screen-img');
+  let rockImg = document.getElementById('rock-img');
+  let paperImg = document.getElementById('paper-img');
+  let scissorsImg = document.getElementById('scissors-img');
+
+  function showComputerChoice(computerSelection) {
+
+    screenText.style.display = 'none';
+    screenImg.forEach(img => {img.style.display = 'none';});
+
+    if (computerSelection === 'rock') { rockImg.style.display ='block';
+    } else if (computerSelection === 'paper') { paperImg.style.display ='block'
+    } else if (computerSelection === 'scissors') { scissorsImg.style.display ='block' } 
+}
+
+// Robot bubble round winner text and score updating 
+
+let firstMsg = document.getElementById('first-line');
+let secondMsg = document.getElementById('second-line');
+
+function countScore(roundWinner) {
+    if (roundWinner === 'player') { playerScore++ ;
+                                    firstMsg.innerText = `You won <${playerSelection}> beats <${computerSelection}>`; 
+                                    
+    } else if (roundWinner === 'computer') { computerScore++;                                            
+                                             firstMsg.innerText = `I won <${computerSelection}> beats <${playerSelection}>`;
+                                             
+    } else if (roundWinner === 'tie') { firstMsg.innerText = "it's a tie this time.";}
+
+    secondMsg.innerText = `Score: Robot<${computerScore}>  Human<${playerScore}>`; 
+}
+
+
+// Declare winner and interface changes to end the game
+
+let selectionButtonsDiv = document.getElementById('selectionButtons');
+let winAudio = new Audio("./sounds/win.wav");
+let lostAudio = new Audio("./sounds/game-over.wav");
+ 
+function declareWinner(playerScore, computerScore) {
+   
+    if (computerScore === 5 || playerScore === 5) {
+
+        secondMsg.innerText = 'click below to play again' ;
+        selectionButtonsDiv.remove();
+        playAgain.style.display = 'block';
+        screenImg.forEach(img => { img.style.display = 'none'});
+        screenText.style.display = 'block';
+        
+
+        if (computerScore === 5) { firstMsg.innerText = 'game over, I won.' ;
+                                   screenText.innerText = 'winner: <rps-22>' ;
+                                   lostAudio.play();
+        } else if (playerScore === 5) { firstMsg.innerText = 'you won! congratulations.' ;
+                                        screenText.innerText = 'winner: <human>' ;
+                                        winAudio.play();}
+    }
+
+}
+
+// Replay the game on click 
+
+let playAgain = document.getElementById('playAgain');
+
+playAgain.addEventListener('click', function () {
+    location.reload();
+});
+
+// Helper-logic functions 
 
 let roundWinner = "";
 let computerScore = 0;
 let playerScore = 0;
 
-
 function playRound(playerSelection, computerSelection) {
-
 
     if (playerSelection === 'rock' && computerSelection === 'rock' || 
         playerSelection === 'paper' &&  computerSelection === 'paper' || 
@@ -46,102 +130,18 @@ function playRound(playerSelection, computerSelection) {
      
   }
 
+function getComputerChoice(){
 
-let playerSelection = '';
-let computerSelection = '';
-let selectionButtons = document.querySelectorAll('.selectBtn');
-let pressAudio = new Audio("./sounds/selectSound.wav");
-let winAudio = new Audio("./sounds/win.wav");
-let lostAudio = new Audio("./sounds/game-over.wav");
-
-
-
-
-  selectionButtons.forEach(btn => {
-
-      btn.addEventListener('click', function () {
-        pressAudio.currentTime = 0;
-        pressAudio.play();
-        playerSelection = btn.id;
-        computerSelection = getComputerChoice();
-        showComputerChoice(computerSelection);
-        playRound(playerSelection, computerSelection);
-        countScore(roundWinner);
-        declareWinner(playerScore, computerScore);
-
-        selectionButtons.forEach(btn => {btn.classList.remove('selectedBtn');});
-        this.classList.add('selectedBtn');
-      });
-      
-  });
-
-
-  let playAgain = document.getElementById('playAgain');
-
-  playAgain.addEventListener('click', function () {
-      location.reload();
-  });
-
-
-  let robotScreen = document.getElementById('robot-screen');
-  let screenText = document.getElementById('screen-text');
-  let screenImg = document.querySelectorAll('.screen-img');
-  let rockImg = document.getElementById('rock-img');
-  let paperImg = document.getElementById('paper-img');
-  let scissorsImg = document.getElementById('scissors-img');
-
-  let firstMsg = document.getElementById('first-line');
-  let secondMsg = document.getElementById('second-line');
-  let selectionButtonsDiv = document.getElementById('selectionButtons');
-
-
-function showComputerChoice(computerSelection) {
-
-    screenText.style.display = 'none';
-    screenImg.forEach(img => {img.style.display = 'none';});
-
-    if (computerSelection === 'rock') { rockImg.style.display ='block';
-    } else if (computerSelection === 'paper') { paperImg.style.display ='block'
-    } else if (computerSelection === 'scissors') { scissorsImg.style.display ='block' } 
-}
-  
-
-function countScore(roundWinner) {
-    if (roundWinner === 'player') { playerScore++ ;
-                                    firstMsg.innerText = `You won <${playerSelection}> beats <${computerSelection}>`; 
-                                    
-    } else if (roundWinner === 'computer') { computerScore++;                                            
-                                             firstMsg.innerText = `I won <${computerSelection}> beats <${playerSelection}>`;
-                                             
-    } else if (roundWinner === 'tie') { firstMsg.innerText = "it's a tie this time.";}
-
-    secondMsg.innerText = `Score: Robot<${computerScore}>  Human<${playerScore}>`; 
-}
-
- 
-function declareWinner(playerScore, computerScore) {
-   
-    if (computerScore === 5 || playerScore === 5) {
-
-        secondMsg.innerText = 'click below to play again' ;
-        selectionButtonsDiv.remove();
-        playAgain.style.display = 'block';
-        screenImg.forEach(img => { img.style.display = 'none'});
-        screenText.style.display = 'block';
-        
-
-        if (computerScore === 5) { firstMsg.innerText = 'game over, I won.' ;
-                                   screenText.innerText = 'winner: <rps-22>' ;
-                                   lostAudio.play();
-        } else if (playerScore === 5) { firstMsg.innerText = 'you won! congratulations.' ;
-                                        screenText.innerText = 'winner: <human>' ;
-                                        winAudio.play();}
-    }
-
-}
-
-
-
+    let n =  Math.floor(Math.random() * 3);
+    
+    if (n === 0) { 
+        return 'rock';
+    } else if (n === 1) {
+        return 'paper';
+    } else if (n === 2) {
+        return 'scissors';
+    } else { return 'something is wrong';}
+    };
 
 
 
